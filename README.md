@@ -39,9 +39,9 @@ This solves the issue of constantly manually rebuilding the code, which is a pai
 The `.vscode` folder and the `.devcontainer.json` file can be deleted if VSCode would not be used as the editor of choice.
 
 ## TODOS
-[ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
-[ ] Running `go mod init` via the docker container instead of on the local system to ensure go version in `go.mod` file matches the go version in `Dockerfile`?
-[ ] Automated tests to ensure script is create project folder properly (including `docker compose up --watch`?)
-[ ] Improving folder name and module path prompts to ensure user does not give invalid inputs (e.g, no input, input with only spaces, module name not matching folder name, etc)
+- [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
+- [ ] Running `go mod init` via the docker container instead of on the local system to ensure go version in `go.mod` file matches the go version in `Dockerfile`?
+- [ ] Automated tests to ensure script is create project folder properly (including `docker compose up --watch`?)
+- [ ] Improving folder name and module path prompts to ensure user does not give invalid inputs (e.g, no input, input with only spaces, module name not matching folder name, etc)
 
 
