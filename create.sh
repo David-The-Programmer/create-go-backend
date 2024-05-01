@@ -8,7 +8,7 @@ read -p "Enter your go module path: " modulePath
 mkdir $folderPath
 cp -r /tmp/create-go-backend/. $folderPath
 rm -rf $folderPath/.git
-rm $folderPath/create-go-backend.sh
+rm $folderPath/create.sh
 
 cd $folderPath
 go mod init $modulePath
