@@ -1,0 +1,23 @@
+linters:
+    enable-all: true
+    disable:
+        # disable all deprecated linters, as well as linters which is not helpful/not making sense
+        - ifshort
+        - deadcode
+        - varcheck
+        - maligned
+        - interfacer
+        - exhaustivestruct
+        - scopelint
+        - nosnakecase
+        - structcheck
+        - golint
+        - wsl
+        - gci
+        - nlreturn
+        - exhaustruct
+        - ireturn
+        - varnamelen
+        - depguard
+        - godox
+        - goerr113

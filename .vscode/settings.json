@@ -1,0 +1,12 @@
+{
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+      "--fast"
+    ],
+    "[yaml]": {
+      "editor.insertSpaces": true,
+      "editor.tabSize": 4,
+      "editor.autoIndent": "full",
+      "diffEditor.ignoreTrimWhitespace": false
+    }
+}
