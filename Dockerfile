@@ -10,8 +10,8 @@ RUN go mod download
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o /backend
+RUN CGO_ENABLED=0 GOOS=linux go build -o ./run
 
 EXPOSE 3000
 
-CMD ["/backend"]
+CMD ["./run"]
