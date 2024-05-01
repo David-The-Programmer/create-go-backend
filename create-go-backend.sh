@@ -5,8 +5,9 @@ read -p "Enter your go module path: " modulePath
 
 # TODO: Need to fix being unable to use "~" to denote home user directory
 mkdir $folderPath
-# TODO: Exclude the script in the copying
 cp -r /tmp/create-go-backend/. $folderPath
+rm -rf $folderPath/.git
+rm $folderPath/create-go-backend.sh
 
 cd $folderPath
 go mod init $modulePath
