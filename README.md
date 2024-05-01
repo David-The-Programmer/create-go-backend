@@ -13,7 +13,7 @@ The following has to be installed prior to running the script:
 
 Run the following command to create a new Go project folder:
 ```bash
-git clone git@github.com:David-The-Programmer/create-go-backend.git /tmp/create-go-backend/ && ./tmp/create-go-backend/create.sh
+git clone git@github.com:David-The-Programmer/create-go-backend.git /tmp/create-go-backend/ && /tmp/create-go-backend/create.sh
 ```
 
 ## Using docker (optional)
