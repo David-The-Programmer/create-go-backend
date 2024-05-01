@@ -5,7 +5,7 @@ read -p "Enter your go module path: " modulePath
 
 mkdir $folderPath
 cp -r /tmp/create-go-backend-temp/create-go-backend/* $folderPath
-rm -r /tmp/create-go-backend-temp
+rm -rf /tmp/create-go-backend-temp
 
 cd $folderPath
 go mod init $modulePath
