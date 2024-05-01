@@ -4,7 +4,7 @@ FROM golang:1.22
 
 WORKDIR /backend
 
-COPY go.mod go.sum ./
+COPY go.* ./
 
 RUN go mod download
 
