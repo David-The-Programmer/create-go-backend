@@ -11,10 +11,24 @@ The following has to be installed prior to running the script:
 
 ## Creating the project folder
 
-Run the following command to create a new Go project folder:
+Clone the repo:
 ```bash
-git clone git@github.com:David-The-Programmer/create-go-backend.git /tmp/create-go-backend/ && /tmp/create-go-backend/create.sh
+git clone git@github.com:David-The-Programmer/create-go-backend.git 
 ```
+
+Run the shell script create a new Go project folder:
+```bash
+./create.sh
+```
+
+You would be prompted for:
+1. The path of the new project folder
+    Take note that you can use either:
+    - a relative path (to your current directory), for example, `./project` or `../project`
+    - a absolute path, for example, `~/project`
+
+2. The go module path
+    Please read the go documentation on specifying the [go module path](https://go.dev/doc/modules/managing-dependencies#naming_module).
 
 ## Using docker (optional)
 
@@ -39,10 +53,6 @@ This solves the issue of constantly manually rebuilding the code, which is a pai
 The `.vscode` folder and the `.devcontainer.json` file can be deleted if VSCode would not be used as the editor of choice.
 
 ## TODOS
-- [ ] DOC: Document on the different prompts that the user will encounter (folder path & module path) and let the user know how to respond to such prompts
-    - [ ] For folder path, use absolute folder paths, able to use tilde(~) notation for user home directory
-    - [ ] For module path, follow the go module naming convention: https://go.dev/doc/modules/managing-dependencies#naming_module
-- [ ] FIX: Allow for use of dot notation to indicate use of current directory for project folder path, currently only supports absolute paths
 - [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
 - [ ] Running `go mod init` via the docker container instead of on the local system to ensure go version in `go.mod` file matches the go version in `Dockerfile`?
 - [ ] Automated tests to ensure script creates project folder properly (including `docker compose up --watch`?)
