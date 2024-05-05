@@ -1,6 +1,10 @@
 services:
   web:
-    build: .
+    env_file: .env
+    build:
+      context: .
+      args:
+        - GO_VERSION=${GO_VERSION}
     ports:
       - "3000:3000"
     develop:

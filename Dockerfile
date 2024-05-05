@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.22
+ARG GO_VERSION
+
+FROM golang:${GO_VERSION}
 
 WORKDIR /backend
 

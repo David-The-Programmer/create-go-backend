@@ -9,24 +9,22 @@ project_path="${project_path/#\~/$HOME}"
 
 read -p "Enter your go module path: " module_path
 
-# read -p "Enter the go version of your go module: " go_version
+read -p "Enter the go version of your go module: " GO_VERSION
 
 # Make the project folder and copy all starter files into the folder
 mkdir $project_path
 cp -r $SCRIPT_DIR/. $project_path
+
+# Create the .env file with the entered go version
+echo "GO_VERSION=$GO_VERSION" > $project_path/.env
+
 rm -rf $project_path/.git
 rm $project_path/create.sh
 
 # Create go.mod file
 cd $project_path
 go mod init $module_path
-# go mod edit -go=$go_version
-
-# TODO: Test prompt for go version
-# TODO: Change docker file go version accordingly as well
-# TODO: Ensure script stops when there are errors
-# TODO: Warn user of directory override when project folder path already exists
-# TODO: Re-prompt user if user does not want to override existing folder in project folder path
+go mod edit -go=$GO_VERSION
 
 echo "Go backend project folder created"
 

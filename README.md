@@ -30,6 +30,12 @@ You would be prompted for:
 2. The go module path
     Please read the go documentation on specifying the [go module path](https://go.dev/doc/modules/managing-dependencies#naming_module).
 
+3. The go version
+    Only the version number needs to be entered.
+    For e.g, `1.17` or `1.21.7`
+    All go release versions can be found [here](https://go.dev/doc/devel/release).
+
+
 ## Using docker (optional)
 
 Once the project is generated, the `Dockerfile` and `compose.yml` files can be deleted if usage of docker is not required.
@@ -52,9 +58,23 @@ This solves the issue of constantly manually rebuilding the code, which is a pai
 
 The `.vscode` folder and the `.devcontainer.json` file can be deleted if VSCode would not be used as the editor of choice.
 
+## Changing the Go version after creation
+
+If the Go version has to be changed after the project folder has been created, take note to change:
+1. The `.env` file. This file contains the `GO_VERSION` environment variable, which is used by `docker compose` to know which Go version to use when building the docker image. Only changing the value of the `GO_VERSION` variable is required, there is no need to export the variable manually. Docker automatically interpolates the variable value from the `.env` file.
+2. The `go.mod` file. Run `go mod edit -go=$GO_VERSION` after changing the `GO_VERSION` variable value in the `.env` file. This will correct the Go version in the `go.mod` file.
+
+Subsequently, run `docker compose build` to force rebuilding of the docker image before running `docker compose up --watch`. 
+This is because `docker compose up --watch` uses the cached image by default, hence the change in Go version would not be reflected.
+
 ## TODOS
-- [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
-- [ ] Running `go mod init` via the docker container instead of on the local system to ensure go version in `go.mod` file matches the go version in `Dockerfile`?
+- [ ] Initialise Git in project folder?
+- [ ] Rewrite in Go?
 - [ ] Automated tests to ensure script creates project folder properly (including `docker compose up --watch`?)
 - [ ] Improving folder name and module path prompts to ensure user does not give invalid inputs (e.g, no input, input with only spaces, module name not matching folder name, etc)
-
+    - [ ] Warn user of directory override when project folder path already exists
+    - [ ] Re-prompt user if user does not want to override existing folder in project folder path
+- [ ] Ensure script stops when there are errors
+- [ ] Log any actions completed/errors during execution of the script
+- [ ] Inclusion of git hooks for testing and linting
+- [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
