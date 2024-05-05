@@ -23,16 +23,19 @@ Run the shell script create a new Go project folder:
 
 You would be prompted for:
 1. The path of the new project folder
+
     Take note that you can use either:
-    - a relative path (to your current directory), for example, `./project` or `../project`
-    - a absolute path, for example, `~/project`
+    - A relative path (to your current directory). For example, `./project` or `../project`.
+    - A absolute path. For example, `~/project`.
 
 2. The go module path
+
     Please read the go documentation on specifying the [go module path](https://go.dev/doc/modules/managing-dependencies#naming_module).
 
 3. The go version
-    Only the version number needs to be entered.
-    For e.g, `1.17` or `1.21.7`
+
+    Only the version number needs to be entered, for e.g, `1.17` or `1.21.7`.
+
     All go release versions can be found [here](https://go.dev/doc/devel/release).
 
 
@@ -61,10 +64,11 @@ The `.vscode` folder and the `.devcontainer.json` file can be deleted if VSCode 
 ## Changing the Go version after creation
 
 If the Go version has to be changed after the project folder has been created, take note to change:
-1. The `.env` file. This file contains the `GO_VERSION` environment variable, which is used by `docker compose` to know which Go version to use when building the docker image. Only changing the value of the `GO_VERSION` variable is required, there is no need to export the variable manually. Docker automatically interpolates the variable value from the `.env` file.
-2. The `go.mod` file. Run `go mod edit -go=$GO_VERSION` after changing the `GO_VERSION` variable value in the `.env` file. This will correct the Go version in the `go.mod` file.
+1. The `.env` file. This file contains the `GO_VERSION` environment variable, which is used by `docker compose` to know which Go version to use when building the docker image. Only changing the value of the `GO_VERSION` variable is required, there is no need to export the variable manually, `docker compose` automatically interpolates the variable value from the `.env` file.
+2. The `go.mod` file. Run `go mod edit -go=<new go version>`. This will correct the Go version in the `go.mod` file.
 
 Subsequently, run `docker compose build` to force rebuilding of the docker image before running `docker compose up --watch`. 
+
 This is because `docker compose up --watch` uses the cached image by default, hence the change in Go version would not be reflected.
 
 ## TODOS
