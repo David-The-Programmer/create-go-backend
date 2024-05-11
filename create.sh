@@ -13,13 +13,10 @@ read -p "Enter the go version of your go module: " GO_VERSION
 
 # Make the project folder and copy all starter files into the folder
 mkdir $project_path
-cp -r $SCRIPT_DIR/. $project_path
+cp -r $SCRIPT_DIR/template/. $project_path
 
 # Create the .env file with the entered go version
 echo "GO_VERSION=$GO_VERSION" > $project_path/.env
-
-rm -rf $project_path/.git
-rm $project_path/create.sh
 
 # Create go.mod file
 cd $project_path

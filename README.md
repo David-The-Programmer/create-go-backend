@@ -79,6 +79,6 @@ This is because `docker compose up --watch` uses the cached image by default, he
     - [ ] Warn user of directory override when project folder path already exists
     - [ ] Re-prompt user if user does not want to override existing folder in project folder path
 - [ ] Ensure script stops when there are errors
-- [ ] Log any actions completed/errors during execution of the script
+- [ ] Display any actions completed/errors during execution of the script
 - [ ] Inclusion of git hooks for testing and linting
 - [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
