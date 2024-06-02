@@ -10,6 +10,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	modfile "golang.org/x/mod/modfile"
 )
 
 func main() {
@@ -33,28 +35,27 @@ func main() {
 	}
 	projectPath = strings.Replace(projectPath, "~", userHomeDir, 1)
 
-	// TODO: Go module init
-	// fmt.Println("Enter your go module path: ")
-	// goModulePath := ""
-	// if scanner.Scan() {
-	//     goModulePath = scanner.Text()
-	// }
-	// if err := scanner.Err(); err != nil {
-	//     err = fmt.Errorf("Failed to read go module path: %w", err)
-	//     slog.Error(err)
-	//     return
-	// }
-	//
-	// fmt.Println("Enter the go version of your go module: ")
-	// goVersion := ""
-	// if scanner.Scan() {
-	//     goVersion = scanner.Text()
-	// }
-	// if err := scanner.Err(); err != nil {
-	//     err = fmt.Errorf("Failed to read go version: %w", err)
-	//     slog.Error(err)
-	//     return
-	// }
+	fmt.Printf("Enter your go module path: ")
+	goModulePath := ""
+	if scanner.Scan() {
+		goModulePath = scanner.Text()
+	}
+	if err := scanner.Err(); err != nil {
+		err = fmt.Errorf("Failed to read go module path: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+
+	fmt.Printf("Enter the go version of your go module: ")
+	goVersion := ""
+	if scanner.Scan() {
+		goVersion = scanner.Text()
+	}
+	if err := scanner.Err(); err != nil {
+		err = fmt.Errorf("Failed to read go version: %w", err)
+		slog.Error(err.Error())
+		return
+	}
 	// TODO: Pipe slog to log errors to file instead
 
 	fmt.Printf("Creating project folder %s...\n", projectPath)
@@ -93,6 +94,49 @@ func main() {
 		}
 	}
 	fmt.Println("Download complete!")
+
+	fmt.Printf("Initalising Go module: %s\n", goModulePath)
+	// TODO: Create go.mod file
+	goModFilepath := filepath.Join(projectPath, "go.mod")
+	_, err = os.Create(goModFilepath)
+	if err != nil {
+		err = fmt.Errorf("Failed to create go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	goModFile, err := modfile.Parse(goModFilepath, []byte{}, nil)
+	if err != nil {
+		err = fmt.Errorf("Failed to parse go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	err = goModFile.AddModuleStmt(goModulePath)
+	if err != nil {
+		err = fmt.Errorf("Failed to add go module path to go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	err = goModFile.AddGoStmt(goVersion)
+	if err != nil {
+		err = fmt.Errorf("Failed to add go version to go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	goModFileContent, err := goModFile.Format()
+	if err != nil {
+		err = fmt.Errorf("Failed to format go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	err = os.WriteFile(goModFilepath, goModFileContent, 0660)
+	if err != nil {
+		err = fmt.Errorf("Failed to write to go.mod file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	fmt.Println("Go module initialised!")
+
+	// TODO: Need to create .env file with entered go version
 }
 
 // See https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-repository-content
