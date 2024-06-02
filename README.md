@@ -5,20 +5,20 @@ Creates a starter project folder for development of Go backends using a single c
 ## Prerequisites
 
 The following has to be installed prior to running the script:
-- Git
 - Go
-- Bash
+
+## Installation
+
+Run the following command to install this tool
+```
+go install github.com/David-The-Programmer/create-go-backend@latest
+```
 
 ## Creating the project folder
 
-Clone the repo:
+Run the following command to create a new Go project folder:
 ```bash
-git clone git@github.com:David-The-Programmer/create-go-backend.git 
-```
-
-Run the shell script create a new Go project folder:
-```bash
-./create.sh
+cgb create
 ```
 
 You would be prompted for:
@@ -72,13 +72,16 @@ Subsequently, run `docker compose build` to force rebuilding of the docker image
 This is because `docker compose up --watch` uses the cached image by default, hence the change in Go version would not be reflected.
 
 ## TODOS
-- [ ] Initialise Git in project folder?
-- [ ] Rewrite in Go?
+- [ ] Able to execute command cgb create to actual create project folder
+- [ ] Package CLI tool to be go install-able
+- [ ] Versioning
+- [ ] Update README sections on installation and creating project folder
 - [ ] Automated tests to ensure script creates project folder properly (including `docker compose up --watch`?)
 - [ ] Improving folder name and module path prompts to ensure user does not give invalid inputs (e.g, no input, input with only spaces, module name not matching folder name, etc)
     - [ ] Warn user of directory override when project folder path already exists
     - [ ] Re-prompt user if user does not want to override existing folder in project folder path
-- [ ] Ensure script stops when there are errors
-- [ ] Display any actions completed/errors during execution of the script
+    - [ ] Account for relative path vs absolute paths for prompt of project path
+- [ ] Add timeouts when downloading template folder content files
+- [ ] Pipe error logs to file instead of just slog (allow both options)
 - [ ] Inclusion of git hooks for testing and linting
 - [ ] Compatibility of `Dockerfile` and `compose.yml` with `.devcontainer.json` (maybe a separate way to make sure vscode uses workspace specific configs, lang version and extensions?)
