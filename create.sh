@@ -11,9 +11,8 @@ read -p "Enter your go module path: " module_path
 
 read -p "Enter the go version of your go module: " GO_VERSION
 
-# Make the project folder and copy all starter files into the folder
-mkdir $project_path
-cp -r $SCRIPT_DIR/template/. $project_path
+# Download template from repo
+wget -O - https://api.github.com/repos/David-The-Programmer/create-go-backend/contents/template | jq '.[]' | jq -r '.download_url'| xargs -r -I{} wget -P $project_path "{}"
 
 # Create the .env file with the entered go version
 echo "GO_VERSION=$GO_VERSION" > $project_path/.env
