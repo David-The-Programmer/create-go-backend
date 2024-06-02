@@ -17,6 +17,7 @@ import (
 func main() {
 	// TODO: Validation of input from user
 	scanner := bufio.NewScanner(os.Stdin)
+	// TODO: Need to account for relative path inputs, user current working dir
 	fmt.Printf("Enter your project folder path: ")
 	projectPath := ""
 	if scanner.Scan() {
@@ -96,7 +97,6 @@ func main() {
 	fmt.Println("Download complete!")
 
 	fmt.Printf("Initalising Go module: %s\n", goModulePath)
-	// TODO: Create go.mod file
 	goModFilepath := filepath.Join(projectPath, "go.mod")
 	_, err = os.Create(goModFilepath)
 	if err != nil {
@@ -136,7 +136,15 @@ func main() {
 	}
 	fmt.Println("Go module initialised!")
 
-	// TODO: Need to create .env file with entered go version
+	fmt.Println("Creating .env file...")
+	envFilepath := filepath.Join(projectPath, ".env")
+	err = os.WriteFile(envFilepath, []byte(fmt.Sprintf("GO_VERSION=%s", goVersion)), 0660)
+	if err != nil {
+		err = fmt.Errorf("Failed to write to .env file: %w", err)
+		slog.Error(err.Error())
+		return
+	}
+	fmt.Println("Creation of Go backend project folder complete!")
 }
 
 // See https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#get-repository-content

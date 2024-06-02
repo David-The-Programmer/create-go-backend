@@ -1,13 +1,13 @@
 package main
 
 import (
-	"net/http"
-	"log"
 	"fmt"
+	"log"
+	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/hello", func(w http.ResponseWriter, req *http.Request){
+	http.HandleFunc("/hello", func(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprint(w, "Hello World\n")
 	})
 	port := 3000
